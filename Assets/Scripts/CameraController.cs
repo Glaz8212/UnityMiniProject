@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float speed = 200f; // 카메라 회전속도에 사용할 마우스 감도 변수
+    public float speed; // 카메라 회전속도에 사용할 마우스 감도 변수
     private float mouseX;
     private float mouseY;
 

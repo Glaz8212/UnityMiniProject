@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 29114168}
   m_Layer: 3
   m_Name: Wall (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 475647717}
   m_Layer: 3
   m_Name: Wall (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -883,11 +883,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37aab98761b9a344dbfc61a9579ad618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalAprefab: {fileID: 0}
-  portalBprefab: {fileID: 0}
-  playerCam: {fileID: 0}
-  muzzlePoint: {fileID: 0}
-  maxDistance: 0
+  portalAprefab: {fileID: 8054626232369378551, guid: 6aad8721673314145a50e9e3b4e5c951,
+    type: 3}
+  portalBprefab: {fileID: 8054626232369378551, guid: 6aad8721673314145a50e9e3b4e5c951,
+    type: 3}
+  playerCam: {fileID: 330585545}
+  muzzlePoint: {fileID: 1286642606}
+  maxDistance: 100
 --- !u!1 &1286642605
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +936,7 @@ GameObject:
   - component: {fileID: 1396796621}
   m_Layer: 3
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1081,7 +1083,7 @@ GameObject:
   - component: {fileID: 1556511665}
   m_Layer: 3
   m_Name: Wall (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1321,7 +1323,7 @@ GameObject:
   - component: {fileID: 1956026677}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

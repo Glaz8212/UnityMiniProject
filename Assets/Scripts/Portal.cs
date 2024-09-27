@@ -5,7 +5,7 @@ using UnityEngine;
 public class Portal : MonoBehaviour
 {
     public Transform linkedPortal; // 연결된 포탈 (다른 포탈의 Transform)
-    public float offsetFromExit = 1.0f; // 포탈 출구에서 얼마나 떨어진 위치로 나올지 설정
+    public float offsetFromExit; // 포탈 출구에서 얼마나 떨어진 위치로 나올지 설정
     private bool isPlayerOverlapping = false;
 
     private void OnTriggerEnter(Collider other)
@@ -40,10 +40,13 @@ public class Portal : MonoBehaviour
         Vector3 newPosition = linkedPortal.position + linkedPortal.forward * offsetFromExit;
         player.transform.position = newPosition;
 
-        // 포탈의 방향에 맞춰 플레이어 회전
-        Vector3 newForward = linkedPortal.forward;
-        player.transform.forward = newForward;
-
+        // 포탈의 방향에 맞춰 카메라(플레이어) 회전
+        Camera playerCamera = player.GetComponentInChildren<Camera>();
+        if (playerCamera != null)
+        {
+            playerCamera.transform.rotation = Quaternion.LookRotation(linkedPortal.forward);
+        }
+        
         // 이동이 끝나면 CharacterController 다시 활성화
         if (playerController != null)
         {
