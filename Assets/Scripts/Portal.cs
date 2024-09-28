@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
         if (other.CompareTag("Player") && !isPlayerOverlapping)
         {
             // 다른 포탈의 위치로 플레이어 이동
-            TeleportPlayer(other);
+            StartCoroutine(TeleportPlayer(other));
         }
     }
 
@@ -27,13 +27,13 @@ public class Portal : MonoBehaviour
         }
     }
 
-    private void TeleportPlayer(Collider player)
+    private IEnumerator TeleportPlayer(Collider player)
     {
         // CharacterController를 비활성화하여 위치 변경을 허용
         CharacterController playerController = player.GetComponent<CharacterController>();
         if (playerController != null)
         {
-            playerController.enabled = false; // 이동 중에는 CharacterController를 비활성화
+            playerController.enabled = false;
         }
 
         // 새로운 위치로 플레이어 이동
@@ -55,5 +55,8 @@ public class Portal : MonoBehaviour
 
         // 중복 이동 방지
         isPlayerOverlapping = true;
+
+        yield return new WaitForSeconds(0.5f);
+        isPlayerOverlapping = false;
     }
 }

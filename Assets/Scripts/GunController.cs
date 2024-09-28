@@ -9,6 +9,7 @@ public class GunController : MonoBehaviour
     public Camera playerCam;
     public Transform muzzlePoint;
     public float maxDistance;
+    public float portalOffset;
 
     private GameObject portalA;
     private GameObject portalB;
@@ -38,7 +39,7 @@ public class GunController : MonoBehaviour
     private void ShootPortal(ref GameObject portal, GameObject portalPrefab)
     {
         // 레이캐스트 발사
-        Ray ray = new Ray(muzzlePoint.position, playerCam.transform.forward);
+        Ray ray = playerCam.ScreenPointToRay(new Vector3(Screen.width /2 , Screen.height /2));
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, maxDistance))
@@ -54,8 +55,12 @@ public class GunController : MonoBehaviour
                         Destroy(portal);
                     }
 
+                    // 포탈 Quad 가 벽에 파묻히는 현상을 막기 위해, 벽에서 띄워서 배치
+                    Vector3 portalPosition = hit.point + hit.normal * portalOffset;
+                    Quaternion portalRotation = Quaternion.LookRotation(-hit.normal) * Quaternion.Euler(0f, 180f, 0f);
+
                     // 포탈 생성
-                    portal = Instantiate(portalPrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                    portal = Instantiate(portalPrefab, portalPosition, portalRotation);
                 }
             }
         }
