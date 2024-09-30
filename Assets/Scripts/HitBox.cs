@@ -9,7 +9,6 @@ public class HitBox : MonoBehaviour
         // 포탈과 충돌했을 때 처리
         if (other.gameObject.layer == LayerMask.NameToLayer("Portal"))
         {
-            Debug.Log("히트박스가 포탈과 충돌");
             Portal portal = other.GetComponent<Portal>();
             if (portal != null)
             {
