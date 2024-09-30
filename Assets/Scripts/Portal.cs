@@ -7,6 +7,7 @@ public class Portal : MonoBehaviour
     public Transform linkedPortal; // 연결된 포탈 (다른 포탈의 Transform)
     public float offsetFromExit; // 포탈 출구에서 얼마나 떨어진 위치로 나올지 설정
     private bool isPlayerOverlapping = false;
+    public Transform forwardPoint;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,6 +30,9 @@ public class Portal : MonoBehaviour
 
     private IEnumerator TeleportPlayer(Collider player)
     {
+        // 중복 이동 방지
+        isPlayerOverlapping = true;
+
         // CharacterController를 비활성화하여 위치 변경을 허용
         CharacterController playerController = player.GetComponent<CharacterController>();
         if (playerController != null)
@@ -40,23 +44,17 @@ public class Portal : MonoBehaviour
         Vector3 newPosition = linkedPortal.position + linkedPortal.forward * offsetFromExit;
         player.transform.position = newPosition;
 
-        // 포탈의 방향에 맞춰 카메라(플레이어) 회전
-        Camera playerCamera = player.GetComponentInChildren<Camera>();
-        if (playerCamera != null)
+        CameraController camera = player.GetComponentInChildren<CameraController>();
+        if (camera != null)
         {
-            playerCamera.transform.rotation = Quaternion.LookRotation(linkedPortal.forward);
+            Transform linkedForwardPoint = linkedPortal.GetComponent<Portal>().forwardPoint;
+            Quaternion targetRotation = Quaternion.LookRotation(linkedForwardPoint.forward);
+            camera.SetTargetRotation(targetRotation);
         }
-        
+
         // 이동이 끝나면 CharacterController 다시 활성화
-        if (playerController != null)
-        {
-            playerController.enabled = true;
-        }
+        playerController.enabled = true;
 
-        // 중복 이동 방지
-        isPlayerOverlapping = true;
-
-        yield return new WaitForSeconds(0.5f);
-        isPlayerOverlapping = false;
+        yield return null;
     }
 }

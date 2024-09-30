@@ -8,19 +8,43 @@ public class CameraController : MonoBehaviour
     private float mouseX;
     private float mouseY;
 
+    private bool RotateToPortal = false;
+    private Quaternion targetRotation;
+
     private void Update()
     {
-        float x = Input.GetAxis("Mouse X");
-        float y = Input.GetAxis("Mouse Y");
+        if (RotateToPortal)
+        {
+            // 목표로 카메라 회전
+            transform.rotation = targetRotation;
 
-        // x축 좌우 회전
-        mouseX += x * speed * Time.deltaTime;
+            //  마우스의 입력을 회전방향으로 설정
+            Vector3 eulerRotation = targetRotation.eulerAngles;
+            mouseX = eulerRotation.x;
+            mouseY = eulerRotation.y;
 
-        // y축 상하 회전
-        mouseY -= y * speed * Time.deltaTime;
-        mouseY = Mathf.Clamp(mouseY, -90f, 90f);
+            RotateToPortal = false;
+        }
+        else
+        {
+            float x = Input.GetAxis("Mouse X");
+            float y = Input.GetAxis("Mouse Y");
 
-        // 카메라 회전 적용
-        transform.eulerAngles = new Vector3(mouseY, mouseX, 0);
+            // x축 좌우 회전
+            mouseX += x * speed * Time.deltaTime;
+
+            // y축 상하 회전
+            mouseY -= y * speed * Time.deltaTime;
+            mouseY = Mathf.Clamp(mouseY, -90f, 90f);
+
+            // 카메라 회전 적용
+            transform.eulerAngles = new Vector3(mouseY, mouseX, 0);
+        }
+    }
+
+    public void SetTargetRotation(Quaternion newRotation)
+    {
+        targetRotation = newRotation;
+        RotateToPortal = true;
     }
 }
