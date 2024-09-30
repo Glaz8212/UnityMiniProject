@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5335353638167947873}
   - component: {fileID: 1550392281397953060}
   - component: {fileID: 5337539101439709321}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Inner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8046580351424439483}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 7429900025313872088}
   - component: {fileID: 1816945577538954449}
   - component: {fileID: 5188606571070593791}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stencil Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 1143994946002656950}
   - component: {fileID: 5906397350145013878}
   - component: {fileID: 4483799117112049875}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PortalB 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 4237175505872834725}
   - component: {fileID: 841639899305795968}
   - component: {fileID: 3986562446895185627}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OutLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

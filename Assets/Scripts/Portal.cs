@@ -4,46 +4,38 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    public Transform linkedPortal; // 연결된 포탈 (다른 포탈의 Transform)
-    public float offsetFromExit; // 포탈 출구에서 얼마나 떨어진 위치로 나올지 설정
-    private bool isPlayerOverlapping = false;
-    public Transform forwardPoint;
+    public Transform linkedPortal;  // 연결된 포탈 (다른 포탈의 Transform)
+    public float offsetFromExit = 1f;  // 포탈 출구에서 얼마나 떨어진 위치로 나올지 설정 (기본값 1)
+    public Transform forwardPoint;  // 포탈의 정면 방향을 나타내는 빈 오브젝트
+    private bool isPlayerOverlapping = false;  // 중복 충돌 방지 플래그
 
-    private void OnTriggerEnter(Collider other)
+    // 히트박스에서 호출되는 메서드
+    public void HandleTeleport(GameObject player)
     {
-        // 플레이어가 포탈에 진입하면
-        if (other.CompareTag("Player") && !isPlayerOverlapping)
+        if (!isPlayerOverlapping)
         {
-            // 다른 포탈의 위치로 플레이어 이동
-            StartCoroutine(TeleportPlayer(other));
+            // 중복 방지 플래그 설정
+            isPlayerOverlapping = true;
+
+            // 코루틴 실행 (이동 및 회전 처리)
+            StartCoroutine(TeleportPlayer(player));
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private IEnumerator TeleportPlayer(GameObject player)
     {
-        // 플레이어가 포탈을 완전히 빠져나오면 중복 충돌 방지 플래그 초기화
-        if (other.CompareTag("Player"))
-        {
-            isPlayerOverlapping = false;
-        }
-    }
-
-    private IEnumerator TeleportPlayer(Collider player)
-    {
-        // 중복 이동 방지
-        isPlayerOverlapping = true;
-
-        // CharacterController를 비활성화하여 위치 변경을 허용
+        // 플레이어의 CharacterController 비활성화
         CharacterController playerController = player.GetComponent<CharacterController>();
         if (playerController != null)
         {
             playerController.enabled = false;
         }
 
-        // 새로운 위치로 플레이어 이동
+        // 플레이어를 새로운 위치로 이동 (linkedPortal의 forward 방향에 offset 적용)
         Vector3 newPosition = linkedPortal.position + linkedPortal.forward * offsetFromExit;
         player.transform.position = newPosition;
 
+        // 포탈의 ForwardPoint를 바라보도록 플레이어의 카메라 회전 처리
         CameraController camera = player.GetComponentInChildren<CameraController>();
         if (camera != null)
         {
@@ -53,8 +45,14 @@ public class Portal : MonoBehaviour
         }
 
         // 이동이 끝나면 CharacterController 다시 활성화
-        playerController.enabled = true;
+        if (playerController != null)
+        {
+            playerController.enabled = true;
+        }
 
         yield return null;
+
+        // 중복 방지 플래그 해제
+        isPlayerOverlapping = false;
     }
 }

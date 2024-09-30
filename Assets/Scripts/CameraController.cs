@@ -20,8 +20,8 @@ public class CameraController : MonoBehaviour
 
             //  마우스의 입력을 회전방향으로 설정
             Vector3 eulerRotation = targetRotation.eulerAngles;
-            mouseX = eulerRotation.x;
-            mouseY = eulerRotation.y;
+            mouseX = eulerRotation.y;
+            mouseY = eulerRotation.x;
 
             RotateToPortal = false;
         }
