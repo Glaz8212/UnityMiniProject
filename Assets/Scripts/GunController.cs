@@ -10,6 +10,7 @@ public class GunController : MonoBehaviour
     public Transform muzzlePoint;
     public float maxDistance;
     public float portalOffset;
+    public PortalUI portalUI;
 
     private GameObject portalA;
     private GameObject portalB;
@@ -17,15 +18,17 @@ public class GunController : MonoBehaviour
     private void Update()
     {
         // 좌클릭으로 입구 생성 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             ShootPortal(ref portalA, portalAprefab);
+            portalUI.UpdatePortalStatus(portalA != null, portalB != null);
         }
 
         // 우클릭으로 출구 생성
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
             ShootPortal(ref portalB, portalBprefab);
+            portalUI.UpdatePortalStatus(portalA != null, portalB != null);
         }
 
         // 포탈 A와 B가 생성된 후 연결
