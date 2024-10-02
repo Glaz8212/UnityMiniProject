@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     public GameObject settingPanel;
     public Slider volumeSlider;
     public Slider sensitivitySlider;
+    public GameObject gameOverPanel;
 
     private CameraController cameraController;
     private AudioListener audioListener;
+    private bool isGameOver = false;
 
     private void Awake()
     {
@@ -43,6 +45,14 @@ public class GameManager : MonoBehaviour
     {
         // 처음 시작할 때 메인 카메라 할당
         FindMainCamera();
+    }
+
+    private void Update()
+    {
+        if( isGameOver && Input.GetKeyDown(KeyCode.R))
+        {
+            RestartStage();
+        }
     }
 
     // 씬 전환 시 Main Camera와 AudioListener 재할당
@@ -135,5 +145,21 @@ public class GameManager : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
+    // 플레이어 사망
+    public void PlayerDead()
+    {
+        isGameOver = true;
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void RestartStage()
+    {
+        Time.timeScale = 1f;
+        isGameOver = false;
+        gameOverPanel.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -15,6 +15,20 @@ public class GunController : MonoBehaviour
     private GameObject portalA;
     private GameObject portalB;
 
+    // 오디오
+    public AudioClip portalShootSound;
+    public AudioClip PortalCreateSound;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null )
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
+
     private void Update()
     {
         // 좌클릭으로 입구 생성 
@@ -41,6 +55,8 @@ public class GunController : MonoBehaviour
 
     private void ShootPortal(ref GameObject portal, GameObject portalPrefab)
     {
+        audioSource.PlayOneShot(portalShootSound);
+
         // 레이캐스트 발사
         Ray ray = playerCam.ScreenPointToRay(new Vector3(Screen.width /2 , Screen.height /2));
         RaycastHit hit;
@@ -64,6 +80,8 @@ public class GunController : MonoBehaviour
 
                     // 포탈 생성
                     portal = Instantiate(portalPrefab, portalPosition, portalRotation);
+
+                    audioSource.PlayOneShot(PortalCreateSound);
                 }
             }
         }

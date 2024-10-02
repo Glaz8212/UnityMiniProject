@@ -9,6 +9,18 @@ public class Portal : MonoBehaviour
     public Transform forwardPoint;  // 포탈의 정면 방향을 나타내는 빈 오브젝트
     private bool isObjectOverlapping = false;  // 중복 충돌 방지 플래그
 
+    public AudioClip portapTPsound;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
+
     // 히트박스에서 호출되는 메서드
     public void HandleTeleport(GameObject obj)
     {
@@ -16,6 +28,8 @@ public class Portal : MonoBehaviour
         {
             // 중복 방지 플래그 설정
             isObjectOverlapping = true;
+
+            audioSource.PlayOneShot(portapTPsound);
 
             // 코루틴 실행 (이동 및 회전 처리)
             StartCoroutine(TeleportPlayer(obj));

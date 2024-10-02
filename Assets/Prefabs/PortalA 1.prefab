@@ -393,6 +393,7 @@ MonoBehaviour:
   linkedPortal: {fileID: 0}
   offsetFromExit: 1
   forwardPoint: {fileID: 6409339250950702621}
+  portapTPsound: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
 --- !u!65 &4987005322340463365
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -340,6 +340,7 @@ MonoBehaviour:
   linkedPortal: {fileID: 0}
   offsetFromExit: 1
   forwardPoint: {fileID: 8046580351424439483}
+  portapTPsound: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
 --- !u!1 &7706068292415630805
 GameObject:
   m_ObjectHideFlags: 0

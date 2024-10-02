@@ -11,6 +11,12 @@ public class CameraController : MonoBehaviour
     private bool RotateToPortal = false;
     private Quaternion targetRotation;
 
+
+    private void Start()
+    {
+        mouseX = Camera.main.transform.eulerAngles.y;
+        mouseY = Camera.main.transform.eulerAngles.x;
+    }
     private void Update()
     {
         if (RotateToPortal)
